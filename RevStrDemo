@@ -1,0 +1,16 @@
+import java.util.Scanner;
+
+public class RevStrDemo {
+
+	public static void main(String[] args) {
+		Scanner s1 = new Scanner(System.in);
+		StringServiceProvider StrDemo = new StringServiceProvider();
+		System.out.println("Please enter a string of char");
+		String Str = s1.next();
+		
+		StrDemo.reverseme(Str);
+		
+
+	}
+
+}
