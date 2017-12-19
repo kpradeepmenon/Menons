@@ -1,0 +1,86 @@
+public class Doctor {
+
+final int a = 10;
+
+	public Doctor() {
+		//super();
+		//System.out.println("Default Constructor");
+	}
+
+	public Doctor(String name) {
+		System.out.println("Default Contructor "+name);
+	}
+
+	public String work() {
+		System.out.println("Printing - Doctors treat patients");
+		return "Doctors treat patients";
+	}	
+	
+  public String fees() {
+		return "Collect fees";	
+	
+	}
+}
+
+
+public class Surgeon extends Doctor {
+	int ab;
+	
+	public Surgeon() {
+		
+	}
+	
+	public Surgeon(String name) {
+		
+		super("yyy");
+		System.out.println("Surgeon default constructor "+name);
+	}
+	
+	public String work() {
+		System.out.println("111 Printing - Surgeons operate on patients");
+		super.work();
+		System.out.println("222 Printing - Surgeons operate on patients");
+		return "Surgeons operate on patients";
+	}
+	
+	public String incision() {
+		return "Surgeons perform incisions";
+	}
+ }
+ 
+ 
+ public class SurgeonDemo {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		 Doctor d = new Surgeon(); //upcasting
+		 
+		 String dret = d.work();
+		 System.out.println("From Doctor: "+dret); //will print Surgeons operate on patients
+		 System.out.println("From Doctor: "+d.fees()); //can access methods in Doctor
+	//	 System.out.println("From Doctor: "+d.incision()); //cannot access methods in Surgeon
+		 
+		 
+		 Doctor d1 = new Doctor();
+		 
+		 Surgeon sg = (Surgeon) d; //downcasting
+		 String ret;
+		 ret = sg.work();
+		 System.out.println("Returned "+ret); //will print Surgeons operate on patients
+		 System.out.println(sg.fees());
+		 System.out.println(sg.incision()); // can access methods in Surgeon
+
+	}
+
+}
+
+
+Output
+From Doctor: Surgeons operate on patients
+From Doctor: Collect fees
+111 Printing - Surgeons operate on patients
+Printing - Doctors treat patients
+222 Printing - Surgeons operate on patients
+Returned Surgeons operate on patients
+Collect fees
+Surgeons perform incisions
