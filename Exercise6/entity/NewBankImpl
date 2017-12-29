@@ -1,0 +1,121 @@
+public class BankImpl {
+
+	public static void main(String[] args) throws InvalidAmountException, InsufficientFundException {
+		
+		Bank account = new Bank();
+		BankAccount acc;
+		int acnum;
+		boolean flag;
+		
+		Scanner s = new Scanner(System.in);
+		int opt;
+		do {
+			System.out.println("\n Please choose an option");
+			System.out.println("Enter 1 for checking if an account exists");
+			System.out.println("Enter 2 for getting balance in an account");
+			System.out.println("Enter 3 for depositing money into an account");
+			System.out.println("Enter 4 for withdrawing money from an account");
+			System.out.println("Enter 5 for transferring money from one account to another");
+			System.out.println("Enter 0 to exit");
+			opt = s.nextInt();
+		
+			switch(opt) {
+			
+			case 1:
+				System.out.println("Please enter the account number");
+				acnum = s.nextInt();
+				acc = account.checkacc(acnum);
+				if (acc != null) {
+					System.out.println(acc);
+					break;
+				} else {
+					System.out.println("This account number doesnt exist");
+				}
+				
+			case 2:
+				System.out.println("Please enter the account number");
+				acnum = s.nextInt();
+				acc = account.checkacc(acnum);
+				if (acc != null) {
+					System.out.println("The balance in account "+acnum+" is "+acc.getBalance());
+					System.out.println("****************************************************");
+					// break;
+				} else {
+					System.out.println("This account number doesnt exist");
+				}
+				break;
+				
+			case 3:
+				System.out.println("Please enter the account number");
+				acnum = s.nextInt();
+				acc = account.checkacc(acnum);
+				if (acc != null) {
+					System.out.println("Please enter the amount to deposit");
+					Double amt = s.nextDouble();
+					try {
+						flag = account.depositMoney(acc, amt) ;
+						System.out.println("Deposit successful. The balance now is " + acc.getBalance());
+						System.out.println("****************************************************");
+						break;
+					}
+					catch (InvalidAmountException e) {
+						System.out.println(e.getMessage());
+					}
+				}
+				break;
+
+			case 4:
+				System.out.println("Please enter the account number");
+				acnum = s.nextInt();
+				acc = account.checkacc(acnum);
+				if (acc != null) {
+					System.out.println("Please enter the amount to withdraw");
+					Double amt = s.nextDouble();
+					try {
+						boolean flag = account.withdrawMoney(acc, amt);
+						System.out.println("Amount " + amt + " withdrawn. The balance now is " + acc.getBalance());
+						System.out.println("****************************************************");
+					}
+					catch (InsufficientFundException e){
+						System.out.println(e.getMessage());
+					}
+					catch (InvalidAmountException e){
+						System.out.println(e.getMessage());
+					}
+				}	
+				else {
+					System.out.println("This account number doesnt exist");
+				}
+				break;
+
+			case 5:
+				System.out.println("Please enter the account number to transfer money from");
+				acnum = s.nextInt();
+				acc = account.checkacc(acnum);
+				if (acc != null) {
+					System.out.println("Please enter the account number to transfer money to");
+					int acnum2 = s.nextInt();
+					BankAccount acc2 = account.checkacc(acnum2);
+					if (acc2 != null) {
+						System.out.println("Please enter the amount to transfer");
+						Double amt = s.nextDouble();
+						if (account.transferMoney(acc, acc2, amt)) {
+							System.out.println("Transfer complete");
+							System.out.println("****************************************************");
+							break;
+						}
+					} else {
+						System.out.println("Account to transfer to doesnt exist");
+						break;
+					}
+
+				} 
+				else {
+					System.out.println("This account number doesnt exist");
+				}
+				break;
+
+			}
+		} while (opt != 0);
+	}
+}
