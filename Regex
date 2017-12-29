@@ -1,0 +1,25 @@
+import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class RegExpressions {
+	public static void main(String[] args) {
+		Scanner s = new Scanner(System.in);
+		String testRegex = "(([a-zA-Z]{1,})(\\w*))@(\\w+)";
+		Pattern pattern = Pattern.compile(testRegex);
+		System.out.println("enter char to match");
+		String ch = s.next();
+		
+		Matcher m = pattern.matcher(ch);
+		boolean found = false;
+		while (m.find()) {
+			System.out.println("Found "+ch+" at "+m.start()+" and ending at "+m.end());
+			found = true;
+		}
+		if (!found) {
+			System.out.println("No match found");
+		}
+		
+	}
+
+}
